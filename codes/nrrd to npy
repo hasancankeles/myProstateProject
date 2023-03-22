@@ -1,0 +1,111 @@
+import nrrd
+import numpy as np
+import os
+import matplotlib.pyplot as plt
+from scipy import ndimage
+tut = 1
+'''
+# Set the path to the folder containing the NRRD files
+folder_path = '/Users/hasancankeles/Downloads/Training'
+tut = 0
+# Iterate over all files in the folder
+for filename in os.listdir(folder_path):
+    if filename.endswith('.nrrd'):  # Only process NRRD files
+        file_path = os.path.join(folder_path, filename)
+        data, header = nrrd.read(file_path)
+        filename = filename[:-5]
+        print(filename)
+        npy_file_path = "/Users/hasancankeles/Downloads/Training/npy/"
+        for i in range(data.shape[2]):
+            if i >= 9:
+                npy_filename = filename + "_1-" + str(i+1) + ".npy"
+            else:
+                npy_filename = filename + "_1-0" + str(i+1) + ".npy"
+            print(npy_filename)
+            tut += 1
+            np.save(npy_file_path + npy_filename, data[:,:,i])
+
+print(tut)
+
+for i in os.listdir("/Users/hasancankeles/Downloads/Training/npy"):
+    file = np.load("/Users/hasancankeles/Downloads/Training/npy/"+i)
+    file = ndimage.rotate(file, 270)
+    plt.imshow(file)
+    plt.title(i)
+    plt.show()
+'''
+
+'''
+# Set the path to the folder containing the NRRD files
+folder_path = '/Users/hasancankeles/Downloads/Test'
+tut = 0
+# Iterate over all files in the folder
+for filename in os.listdir(folder_path):
+    if filename.endswith('.nrrd'):  # Only process NRRD files
+        file_path = os.path.join(folder_path, filename)
+        data, header = nrrd.read(file_path)
+        filename = filename[:-11]
+        print(filename)
+        npy_file_path = "/Users/hasancankeles/Downloads/Test/npy/"
+        for i in range(data.shape[2]):
+            if i >= 9:
+                npy_filename = filename + "_1-" + str(i+1) + ".npy"
+            else:
+                npy_filename = filename + "_1-0" + str(i+1) + ".npy"
+            print(npy_filename)
+            tut += 1
+            np.save(npy_file_path + npy_filename, data[:,:,i])
+
+print(tut)
+
+for i in os.listdir("/Users/hasancankeles/Downloads/Test/npy"):
+    file = np.load("/Users/hasancankeles/Downloads/Test/npy/"+i)
+    file = ndimage.rotate(file, 270)
+    plt.imshow(file)
+    plt.title(i)
+    plt.show()
+
+'''
+
+
+
+
+
+'''folder_path = '/Users/hasancankeles/Downloads/Test'
+
+# Iterate over all files in the folder
+for filename in os.listdir(folder_path):
+    if filename.endswith('.nrrd'):  # Only process NRRD files
+        break
+        file_path = os.path.join(folder_path, filename)
+        
+        # Load the NRRD file
+        data, header = nrrd.read(file_path)
+        
+        # Save as NPY file
+        npy_filename = filename.replace('.nrrd', '.npy')  # Use the same filename with .npy extension
+        print(npy_filename)
+        npy_file_path = os.path.join("/Users/hasancankeles/Downloads/Test/npy", npy_filename)
+        print(npy_file_path)
+
+        np.save(npy_file_path, data)'''
+
+
+########fix corrected labels
+
+for i in os.listdir("/Users/hasancankeles/Downloads/Training/npy"):
+    if i.startswith("ProstateDx-01-0006_correctedLabels"):
+        data = np.load("/Users/hasancankeles/Downloads/Training/npy/" + i)
+        filename = "ProstateDx-01-0006_1-"
+        if tut <= 9:
+            filename += "0"
+            filename += str(tut)
+            filename += ".npy"
+            tut += 1
+        else:
+            filename += str(tut)
+            filename += ".npy"
+            tut += 1
+        np.save("/Users/hasancankeles/Downloads/Training/npy/" + filename, data)
+        os.remove("/Users/hasancankeles/Downloads/Training/npy/" + i)
+        print(filename)

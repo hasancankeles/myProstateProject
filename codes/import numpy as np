@@ -1,0 +1,11 @@
+import numpy as np
+
+# Create a 2D array
+arr_2d = np.array([[1, 2, 3], [4, 5, 6]])
+
+# Reshape the 2D array to a 3D array with shape (2, 3, 1)
+arr_3d = arr_2d.reshape((2, 3, 1))
+
+# Print the original and reshaped arrays
+print("2D array:\n", arr_2d)
+print("3D array:\n", arr_3d)
